@@ -1,0 +1,14 @@
+.FilterComponent .textInput
+{
+    margin: 0 5px;
+}
+
+.FilterComponent .selectBlock
+{
+    padding: 5px;
+}
+
+.FilterComponent .selectBlock .select
+{
+    width: 253px;
+}

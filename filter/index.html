@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="container"></div>
+
+<script src="https://unpkg.com/react@15/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+<script src="FilterComponent.js"></script>
+<link rel="stylesheet" type="text/css" href="filterComponent.css" />
+
+<script>
+
+    var stringArr = ['человек', 'носитель', 'высокопревосходительство', 'бургомистр',
+        'герольдство', 'нонсонс', 'контрстратегия', 'монополия', 'задача'];
+
+
+    ReactDOM.render(
+        React.createElement(FilterComponent, {strings: stringArr}),
+        document.getElementById('container')
+    );
+
+</script>
+
+</body>
+</html>
