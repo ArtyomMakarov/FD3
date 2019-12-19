@@ -21,37 +21,37 @@ var FilterComponent = React.createClass({
     },
 
     filterText: function() {
-        var arr = this.state.stringArr.filter(v => v.includes(this.state.text));
+        var arr = this.props.strings.filter(v => v.includes(this.state.text));
         this.setState({stringArr: arr, noSortArr: arr});
     },
 
     sortClicked: function(e) {
-        var sortArr=[];
+        this.setState({checked: true});
         if(e.target.checked) {
-            sortArr = this.state.stringArr;
-            this.setState({stringArr: sortArr.sort()});
+            var sortArr = this.state.stringArr.slice().sort();
+            this.setState({stringArr: sortArr});
         } else {
-
+            this.setState({checked: false});
             if(this.state.noSortArr) {
-                this.setState({stringArr: this.state.noSortArr}, this.render);
+                this.setState({stringArr: this.state.noSortArr});
             } else {
-                this.setState({stringArr: this.props.strings}, this.render)
+                this.setState({stringArr: this.props.strings});
             }
-
         }
     },
 
     clearAll: function() {
-        this.setState({text: null, stringArr: this.props.strings}, this.render);
-    },
+        this.setState({text: null, stringArr: this.props.strings, checked: false});
+    }
+    ,
 
     render: function () {
-
+        console.log(this.state.text);
         var stringOfArr = this.state.stringArr.map(v =>
             React.DOM.option({key: Math.random()}, v));
 
         return React.DOM.div({className: 'FilterComponent'},
-            React.DOM.input({type: 'checkbox', name: 'filterText', onClick: this.sortClicked}),
+            React.DOM.input({type: 'checkbox', name: 'filterText',checked: this.state.checked, onClick: this.sortClicked}),
             React.DOM.input({type: 'text', className: 'textInput', onChange: this.textChanged, defaultValue: this.state.text}),
             React.DOM.input({type:'button',value:'Сброс', onClick: this.clearAll}),
             React.DOM.div({className: 'selectBlock'},
