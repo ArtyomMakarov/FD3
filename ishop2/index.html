@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ishop</title>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+    <script src="Ishop2Component.js"></script>
+    <link rel="stylesheet" type="text/css" href="Ishop2.css" />
+
+    <script>
+        var shopName = '21 Vek';
+        var itemsArr = [
+            {name: 'Телевизор Samsung UE32N5300AU', price: '639,00 р', url: 'https://static.21vek.by/img/galleries/650/473/ue32n5300au_samsung_5b61cc31820b0.jpeg', code: '650.473', inStock: '10'},
+            {name: 'Телевизор Horizont 32LE7511D', price: '369,00 р', url: 'https://static.21vek.by/img/galleries/5733/72/32le7511d_horizont_5db721a63fb18.png', code: '5.733.072', inStock: '12'},
+            {name: 'Телевизор Kivi 32HR52GR', price: '399,00 р', url: 'https://static.21vek.by/img/galleries/1146/492/24hr52gr_kivi_5d66436a9ad78.jpeg', code: '5.704.925', inStock: '14'},
+            {name: 'Телевизор Kivi 40FR52BR', price: '599,00 р', url: 'https://static.21vek.by/img/galleries/5704/880/40fr52br_kivi_5d932d19979dd.jpeg', code: '5.704.880', inStock: '20'},
+            {name: 'Телевизор Toshiba 43U7752EV', price: '699,00 р', url: 'https://static.21vek.by/img/galleries/753/290/43u7752ev_toshiba_5be28a1830495.jpeg', code: '753.290', inStock: '8'},
+        ];
+
+        ReactDOM.render(
+            React.createElement(Ishop, {name: shopName, items: itemsArr}),
+            document.getElementById('container')
+        );
+
+    </script>
+
+</body>
+</html>
