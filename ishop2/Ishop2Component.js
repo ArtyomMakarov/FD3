@@ -7,6 +7,13 @@ var Ishop = React.createClass({
         return {name: "не задано"}
     },
 
+    getInitialState: function() {
+        return {
+            selectedItemCode: "",
+            items: this.props.items
+        }
+    },
+
     trClicked: function (e) {
         if(e.target.parentNode.style.backgroundColor =='orange') {
             e.target.parentNode.style.backgroundColor='white'
@@ -15,24 +22,30 @@ var Ishop = React.createClass({
         }
     },
 
+    selectedItem: function (e) {
+        var itemCode = e.target.parentElement.parentElement;
+        console.log(itemCode.value);
+    },
+
     deleteTr: function (e) {
-        e.parentElement.remove();
-        console.log(e.parentElement.key);
+        console.log(e.target.parentElement.parentElement);
     },
     
     render: function () {
 
         var itemsCode = [];
+        var self = this;
 
-        this.props.items.forEach(function (item) {
+        this.state.items.forEach(function (item) {
+
             var itemCode =
-                React.DOM.tr({key: item.code, className: 'item'},
+                React.DOM.tr({key: item.code, className: 'item', value: item.code}, // как вот это value достать
                     React.DOM.td({className: 'cell'}, item.name),
                     React.DOM.td({className: 'cell'}, item.price),
                     React.DOM.td({className: 'cell'}, item.url),
                     React.DOM.td({className: 'cell'}, item.inStock),
                     React.DOM.td({className: 'cell'},
-                        React.DOM.input({type:'button',value:'Delete',onClick:this.deleteTr}) // не срабатывает onClick
+                        React.DOM.input({type:'button',value:'Delete', onClick: self.selectedItem})
                     ),
                 );
             itemsCode.push(itemCode);
