@@ -24,7 +24,7 @@ var Ishop = React.createClass({
         this.setState({selectedItemCode: code}, ()=> {
             this.state.items.forEach(item => {
                 if(item.code == code) {
-                    this.setState({isSelected: true}) // можно ли сюда передать метод из IshopItem
+                    this.setState({isSelected: true})
                 }
             })
         })
