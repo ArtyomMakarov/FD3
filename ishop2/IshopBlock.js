@@ -9,7 +9,6 @@ var Ishop = React.createClass({
     },
 
     getDefaultProps: function () {
-      
         return {name: "не задано"}
     },
 
@@ -17,20 +16,17 @@ var Ishop = React.createClass({
         return {
             selectedItemCode: null,
             items: this.props.items,
-            style: 'item',
-            index: null
+            isSelected: false
         }
     },
 
     itemSelected: function (code) {
-        this.setState({selectedItemCode: code}, this.colorChanged)
-    },
-
-    colorChanged: function () {
-        this.state.items.forEach(item => {
-        if(item.code == this.state.selectedItemCode) {
-            this.setState({style:'itemSelect'})
-        }
+        this.setState({selectedItemCode: code}, ()=> {
+            this.state.items.forEach(item => {
+                if(item.code == code) {
+                    this.setState({isSelected: true}) // можно ли сюда передать метод из IshopItem
+                }
+            })
         })
     },
 
@@ -39,12 +35,10 @@ var Ishop = React.createClass({
     },
 
     deleteElement: function () {
-        this.state.items.forEach((item,index)=> {
-            if(item.code == this.state.selectedItemCode) {
-                this.setState({index: index})
-            }
-        });
-        this.state.items.splice(this.state.index,1)
+        var filterArr = this.state.items.filter( item =>
+            item.code !== this.state.selectedItemCode
+        );
+        this.setState({items: filterArr});
     },
     
     render: function () {
@@ -52,7 +46,7 @@ var Ishop = React.createClass({
         var itemsCode = this.state.items.map(v =>
             React.createElement(IshopItem, {key: v.code, code: v.code,
                 name: v.name, price: v.price, url: v.url, inStock: v.inStock,
-            cbSelected: this.itemSelected, cbDeleted: this.deleteItem, addClass: this.state.style})
+            cbSelected: this.itemSelected, cbDeleted: this.deleteItem, isSelected: this.state.isSelected})
         );
 
         return React.DOM.div({className: 'Ishop'},
