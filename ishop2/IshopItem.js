@@ -13,22 +13,8 @@ var IshopItem = React.createClass({
         isSelected: React.PropTypes.bool.isRequired
     },
 
-    getInitialState: function () {
-        return {
-            items: this.props.items,
-            style: {background: 'white'}
-        };
-    },
-
     itemClicked: function () {
         this.props.cbSelected(this.props.code);
-
-        if (this.props.isSelected) {
-                    this.setState({style: {background: 'orange'}});
-        } else {
-            this.setState({style: {background: 'white'}});
-        }
-
     },
 
     deleteItem: function() {
@@ -38,7 +24,7 @@ var IshopItem = React.createClass({
     render: function () {
 
         return React.DOM.tr({key: this.props.code, className: 'item',
-                onClick: this.itemClicked, style: this.state.style},
+                onClick: this.itemClicked, style: {background: this.props.isSelected ? 'yellow' : 'white'}},
             React.DOM.td({className: 'cell'}, this.props.name),
             React.DOM.td({className: 'cell'}, this.props.price),
             React.DOM.td({className: 'cell'}, this.props.url),

@@ -12,7 +12,7 @@
 
     <script src="IshopBlock.js"></script>
     <script src="IshopItem.js"></script>
-    <link rel="stylesheet" type="text/css" href="Ishop2.css" />
+    <link rel="stylesheet" type="text/css" href="IshopBlock.css" />
 
     <script>
         var shopName = '21 Vek';
@@ -25,7 +25,7 @@
         ];
 
         ReactDOM.render(
-            React.createElement(Ishop, {name: shopName, items: itemsArr}),
+            React.createElement(IshopBlock, {name: shopName, items: itemsArr}),
             document.getElementById('container')
         );
 

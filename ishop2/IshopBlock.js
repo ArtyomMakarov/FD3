@@ -1,4 +1,4 @@
-var Ishop = React.createClass({
+var IshopBlock = React.createClass({
 
     displayName: "IshopBlock",
 
@@ -15,30 +15,26 @@ var Ishop = React.createClass({
     getInitialState: function() {
         return {
             selectedItemCode: null,
-            items: this.props.items,
-            isSelected: false
+            items: this.props.items
         }
     },
 
     itemSelected: function (code) {
-        this.setState({selectedItemCode: code}, ()=> {
-            this.state.items.forEach(item => {
-                if(item.code == code) {
-                    this.setState({isSelected: true})
-                }
-            })
-        })
+        this.setState({selectedItemCode: code})
     },
 
-    deleteItem: function (code) {
+    setDeleteCode: function (code) {
         this.setState({selectedItemCode: code}, this.deleteElement)
     },
 
     deleteElement: function () {
-        var filterArr = this.state.items.filter( item =>
-            item.code !== this.state.selectedItemCode
-        );
-        this.setState({items: filterArr});
+        let answer = confirm('Delete?');
+        if (answer) {
+            var filterArr = this.state.items.filter(item =>
+                item.code !== this.state.selectedItemCode
+            );
+            this.setState({items: filterArr});
+        }
     },
     
     render: function () {
@@ -46,7 +42,8 @@ var Ishop = React.createClass({
         var itemsCode = this.state.items.map(v =>
             React.createElement(IshopItem, {key: v.code, code: v.code,
                 name: v.name, price: v.price, url: v.url, inStock: v.inStock,
-            cbSelected: this.itemSelected, cbDeleted: this.deleteItem, isSelected: this.state.isSelected})
+                cbSelected: this.itemSelected, cbDeleted: this.setDeleteCode,
+                isSelected: (v.code == this.state.selectedItemCode)})
         );
 
         return React.DOM.div({className: 'Ishop'},
