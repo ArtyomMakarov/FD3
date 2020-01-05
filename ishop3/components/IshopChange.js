@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './IshopChange.css'
+
 class IshopChange extends React.Component {
 
     static displayName =  "IshopChange"
@@ -9,10 +11,78 @@ class IshopChange extends React.Component {
         name: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,
         url: PropTypes.string.isRequired,
-        quantity: PropTypes.number.isRequired,
-        edit: PropTypes.bool.isRequired
+        quantity: PropTypes.string.isRequired,
+        edit: PropTypes.bool.isRequired,
+        code: PropTypes.string.isRequired,
+        cbChanged: PropTypes.func.isRequired
     }
 
+    state = {
+        name: '',
+        price: '',
+        url: '',
+        quantity: '',
+        editItems: '',
+        addItems: '',
+        nameError: false,
+        priceError: false,
+        urlError: false,
+        quantityError: false,
+
+    }
+
+    inputChanged = (e) => {
+        this.props.cbOnChange();
+        if(e.target.value=='') {
+            this.validFunc(e, true);
+        } else {
+            this.validFunc(e, false);
+        }
+    }
+
+    validFunc = (e, error) => {
+        switch (e.target.name) {
+            case 'itemName':
+                this.setState({name: e.target.value, nameError: error}, this.editItems);
+                break;
+            case 'itemPrice':
+                this.setState({price: e.target.value, priceError: error},this.editItems);
+                break;
+            case 'itemURL':
+                this.setState({url: e.target.value, urlError: error},this.editItems);
+                break;
+            case 'itemQuantity':
+                this.setState({quantity: e.target.value, quantityError: error},this.editItems);
+                break;
+        }
+    }
+
+    editItems = () => {
+        if (this.state.name && this.state.price && this.state.url && this.state.quantity) {
+            var arr = this.props.items.map(v => {
+                if (v.code == this.props.code) {
+                    v.name = this.state.name;
+                    v.price = this.state.price;
+                    v.url = this.state.url;
+                    v.inStock = this.state.quantity;
+                }
+                return v;
+
+            });
+            this.setState({editItems: arr}, () => console.log(this.state));
+        }
+    }
+
+    changeItems = (e) => {
+        if (e.target.value=='Save') {
+            this.props.cbChanged(this.state.editItems);
+        } else {
+            var arr = this.props.items.slice();
+            arr.push({name: this.state.name, price: this.state.price, url: this.state.url, code: this.state.name, inStock: this.state.quantity });
+            this.props.cbChanged(arr);
+        }
+        this.setState({name: '', price: '', url: '', quantity: ''});
+    }
 
     render() {
         return (
@@ -20,13 +90,30 @@ class IshopChange extends React.Component {
                 {
                     (this.props.mode==1)? <h3>Edit Existing Product</h3>: <h3>Add new product</h3>
                 }
-                <span>ID: {}</span>
-                <span>Name</span><input type="text" name="itemName"/>
-                <span>Price</span><input type="text" name="itemPrice"/>
-                <span>URL</span><input type="text" name="itemURL"/>
-                <span>Quantity</span><input type="text" name="itemQuantity"/>
-                <input type="button" value={(this.props.mode==1)?"Save":"Add"}/>
-                <input type="button" value="Cancel"/>
+                <span>ID: {this.props.code}</span>
+                <label className='inputArea'>
+                    <span className="fieldName">Name</span>
+                    <input type="text" name="itemName" onChange={this.inputChanged}/>
+                    <span className='error' hidden={!this.state.nameError}>Please, fill the field. Value must be a string.</span>
+                </label>
+                <label className='inputArea'>
+                    <span className="fieldName">Price</span>
+                    <input type="text" name="itemPrice" onChange={this.inputChanged}/>
+                    <span className='error' hidden={!this.state.priceError}>Please, fill the field. Value must be a rational number greater than 0.</span>
+                </label>
+                <label className='inputArea'>
+                    <span className="fieldName">URL</span>
+                    <input type="text" name="itemURL" onChange={this.inputChanged}/>
+                    <span className='error' hidden={!this.state.urlError}>Please, fill the field. Value must be a valid URL.</span>
+                </label>
+                <label className='inputArea'>
+                    <span className="fieldName">Quantity</span>
+                    <input type="text" name="itemQuantity" onChange={this.inputChanged}/>
+                    <span className='error' hidden={!this.state.quantityError}>Please, fill the field. Value must be a positive integer.</span>
+                </label>
+                <input type="button" value={(this.props.mode==1)?"Save":"Add"} onClick={this.changeItems}
+                       disabled={!(this.state.name && this.state.price && this.state.url && this.state.quantity)}/>
+                <input type="button" value="Cancel" onClick={this.props.cbCanceled}/>
             </div>
         )
     }

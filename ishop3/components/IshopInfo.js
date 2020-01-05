@@ -25,4 +25,8 @@ class IshopInfo extends React.Component {
     }
 }
 
+
+
+
+
 export default IshopInfo;

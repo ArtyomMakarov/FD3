@@ -10,7 +10,7 @@ class IshopItem extends React.Component {
         name: PropTypes.string.isRequired,
         price: PropTypes.string.isRequired,
         url: PropTypes.string.isRequired,
-        inStock: PropTypes.number.isRequired,
+        inStock: PropTypes.string.isRequired,
         cbSelected: PropTypes.func.isRequired,
         cbEdited: PropTypes.func.isRequired,
         cbDeleted:  PropTypes.func.isRequired,
@@ -25,7 +25,8 @@ class IshopItem extends React.Component {
         this.props.cbDeleted(this.props.code)
     }
 
-    editItem = () => {
+    editItem = (e) => {
+            e.stopPropagation();
             this.props.cbEdited(this.props.code, this.props.name, this.props.price, this.props.url, this.props.inStock)
     }
 

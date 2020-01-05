@@ -1,0 +1,10 @@
+.itemChange .inputArea
+{
+    display: block;
+}
+
+.itemChange .inputArea .fieldName
+{
+    display: inline-block;
+    width: 60px;
+}
