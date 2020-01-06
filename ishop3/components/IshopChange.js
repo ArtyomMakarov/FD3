@@ -24,11 +24,10 @@ class IshopChange extends React.Component {
         quantity: '',
         editItems: '',
         addItems: '',
-        nameError: false,
-        priceError: false,
-        urlError: false,
-        quantityError: false,
-
+        nameError: true,
+        priceError: true,
+        urlError: true,
+        quantityError: true
     }
 
     inputChanged = (e) => {
@@ -59,7 +58,8 @@ class IshopChange extends React.Component {
 
     editItems = () => {
         if (this.state.name && this.state.price && this.state.url && this.state.quantity) {
-            var arr = this.props.items.map(v => {
+            var arr = this.props.items.slice();
+                arr.map(v => {
                 if (v.code == this.props.code) {
                     v.name = this.state.name;
                     v.price = this.state.price;
@@ -69,7 +69,7 @@ class IshopChange extends React.Component {
                 return v;
 
             });
-            this.setState({editItems: arr}, () => console.log(this.state));
+            this.setState({editItems: arr});
         }
     }
 
@@ -86,7 +86,7 @@ class IshopChange extends React.Component {
 
     render() {
         return (
-            <div className='itemChange' hidden={!this.props.edit}>
+            <div className='itemChange' key={this.props.key} hidden={!this.props.edit}>
                 {
                     (this.props.mode==1)? <h3>Edit Existing Product</h3>: <h3>Add new product</h3>
                 }

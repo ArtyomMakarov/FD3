@@ -27,20 +27,21 @@ class IshopItem extends React.Component {
 
     editItem = (e) => {
             e.stopPropagation();
-            this.props.cbEdited(this.props.code, this.props.name, this.props.price, this.props.url, this.props.inStock)
+            this.props.cbEdited(this.props.code, this.props.name, this.props.price, this.props.url, this.props.inStock);
     }
 
     render() {
         return (
             <tr key={this.props.code} className='item'
-                onClick={this.itemClicked} style={{background: this.props.isSelected ? 'yellow' : 'white'}}>
+                onClick={(this.props.blockChange || this.props.add) ? null : this.itemClicked}
+                style={{background: this.props.isSelected ? 'yellow' : 'white'}}>
                 <td className='cell'>{this.props.name}</td>
                 <td className='cell'>{this.props.price}</td>
                 <td className='cell'>{this.props.url}</td>
                 <td className='cell'>{this.props.inStock}</td>
                 <td className='cell'>
-                    <input type='button' value='Edit' onClick={this.editItem}/>
-                    <input type='button' value='Delete' onClick={this.deleteItem}/>
+                    <input type='button' value='Edit' onClick={(this.props.blockChange || this.props.add) ? null : this.editItem}/>
+                    <input type='button' value='Delete' onClick={(this.props.blockChange || this.props.add) ? null : this.deleteItem}/>
                 </td>
             </tr>
         );
