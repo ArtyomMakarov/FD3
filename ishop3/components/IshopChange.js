@@ -24,6 +24,7 @@ class IshopChange extends React.Component {
         quantity: '',
         editItems: '',
         addItems: '',
+        items: this.props.items,
         nameError: true,
         priceError: true,
         urlError: true,
@@ -58,8 +59,9 @@ class IshopChange extends React.Component {
 
     editItems = () => {
         if (this.state.name && this.state.price && this.state.url && this.state.quantity) {
-            var arr = this.props.items.slice();
-                arr.map(v => {
+            let arr = this.props.items.slice();
+            console.log(this.props.items);                                      // изменяется props несмотря на slice
+            let newArr = arr.map(v => {
                 if (v.code == this.props.code) {
                     v.name = this.state.name;
                     v.price = this.state.price;
@@ -67,9 +69,10 @@ class IshopChange extends React.Component {
                     v.inStock = this.state.quantity;
                 }
                 return v;
-
             });
-            this.setState({editItems: arr});
+            this.setState({editItems: newArr});
+
+
         }
     }
 
@@ -86,7 +89,7 @@ class IshopChange extends React.Component {
 
     render() {
         return (
-            <div className='itemChange' key={this.props.key} hidden={!this.props.edit}>
+            <div className='itemChange' hidden={!this.props.edit}>
                 {
                     (this.props.mode==1)? <h3>Edit Existing Product</h3>: <h3>Add new product</h3>
                 }
