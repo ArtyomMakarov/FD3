@@ -14,11 +14,13 @@ class IshopItem extends React.Component {
         cbSelected: PropTypes.func.isRequired,
         cbEdited: PropTypes.func.isRequired,
         cbDeleted:  PropTypes.func.isRequired,
-        isSelected: PropTypes.bool.isRequired
+        isSelected: PropTypes.bool.isRequired,
+        mode: PropTypes.number.isRequired,
+        add: PropTypes.bool.isRequired
     }
 
-    itemClicked = () => {
-        this.props.cbSelected(this.props.code, this.props.name, this.props.price, this.props.url);
+    itemClicked = (e) => {
+        this.props.cbSelected(this.props.code);
     }
 
     deleteItem = () => {
@@ -27,20 +29,20 @@ class IshopItem extends React.Component {
 
     editItem = (e) => {
             e.stopPropagation();
-            this.props.cbEdited(this.props.code, this.props.name, this.props.price, this.props.url, this.props.inStock);
+            this.props.cbEdited(this.props.code);
     }
 
     render() {
         return (
             <tr key={this.props.code} className='item'
                 onClick={(this.props.blockChange || this.props.add) ? null : this.itemClicked}
-                style={{background: this.props.isSelected ? 'yellow' : 'white'}}>
+                style={{background: this.props.isSelected && !(this.props.add) && this.props.mode!==0 ? 'yellow' : 'white'}}>
                 <td className='cell'>{this.props.name}</td>
                 <td className='cell'>{this.props.price}</td>
                 <td className='cell'>{this.props.url}</td>
                 <td className='cell'>{this.props.inStock}</td>
                 <td className='cell'>
-                    <input type='button' value='Edit' onClick={(this.props.blockChange || this.props.add) ? null : this.editItem}/>
+                    <input type='button' value='Edit' onClick={(this.props.blockChange || this.props.mode!==1) ? null : this.editItem}/>
                     <input type='button' value='Delete' onClick={(this.props.blockChange || this.props.add) ? null : this.deleteItem}/>
                 </td>
             </tr>

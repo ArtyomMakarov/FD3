@@ -26,26 +26,18 @@ class IshopBlock extends React.Component {
     state =  {
         selectedItemCode: '',
         items: this.props.items,
-        name: '',
-        price: '',
-        url: '',
-        quantity: '',
-        info: false,
-        edit: false,
-        add: false,
         blockChange: false,
-        mode: 1,
-        key: 0
+        mode: 0, // 0-begin, 1-view, 2-edit
+        key: '0',
+        add: false
     }
 
-    itemSelected = (code, name, price, url) => {
-        this.setState({selectedItemCode: code, name: name, price: price, url: url,
-            info: true, edit: false})
+    itemSelected = (code) => {
+        this.setState({selectedItemCode: code, mode: 1})
     }
 
-    itemEdited = (code, name, price, url, quantity) => {
-        this.setState({selectedItemCode: code, name: name, price: price, url: url, quantity: quantity,
-            edit: true, info: false, mode: 1, key: ++this.state.key})
+    itemEdited = (code) => {
+        this.setState({selectedItemCode: code, mode: 2, key: ++this.state.key})
     }
 
     setDeleteCode = (code) => {
@@ -58,7 +50,7 @@ class IshopBlock extends React.Component {
             var filterArr = this.state.items.filter(item =>
                 item.code !== this.state.selectedItemCode
             );
-            this.setState({items: filterArr, info: false});
+            this.setState({items: filterArr, mode: 0, selectedItemCode: ''});
         }
     }
 
@@ -67,26 +59,38 @@ class IshopBlock extends React.Component {
     }
 
     newProduct = () => {
-        this.setState({mode: 2, edit: true, add: true, key: ++this.state.key});
+        let key = ++this.state.key;
+        let newKey = String(key);
+        this.setState({mode: 2, key: newKey, add: true});
     }
 
-    changeItems = (editItems) => {
-        this.setState({items: editItems, blockChange: false, add: false, edit: false});
+    changeItems = (newItem) => {
+        let items;
+        if(this.state.add) {
+            let item = {...newItem, code: this.state.key};
+            items=this.state.items.slice();
+            items.push(item);
+        }else {
+            items = this.state.items.map(v => v.code==newItem.code ? newItem : v);
+        }
+        this.setState({items: items, blockChange: false, mode: 0, add: false});
     }
 
     canceled = () => {
-        this.setState({edit: false, blockChange: false, add: false});
+        this.setState({mode: 0, blockChange: false, add: false});
     }
     
     render() {
 
-        var itemsCode = this.state.items.map(v =>
+        let itemsCode = this.state.items.map(v =>
             <IshopItem key={v.code} code={v.code} blockChange={this.state.blockChange} add={this.state.add}
-                name={v.name} price={v.price} url={v.url} inStock={v.inStock}
+                name={v.name} price={v.price} url={v.url} inStock={v.inStock} mode={this.state.mode}
                 cbSelected={this.itemSelected} cbDeleted={this.setDeleteCode}
-                cbEdited={this.itemEdited}  isSelected={v.code == this.state.selectedItemCode && !this.state.add}
+                cbEdited={this.itemEdited}  isSelected={v.code == this.state.selectedItemCode}
             />
         );
+
+        let item = this.state.items.find(v => v.code == this.state.selectedItemCode);
 
         return (
             <div className='Ishop'>
@@ -103,11 +107,10 @@ class IshopBlock extends React.Component {
                     </thead>
                     <tbody className='body'>{itemsCode}</tbody>
                 </table>
-                <input type='button' value='New Product' onClick={this.newProduct} hidden={this.state.edit==true}/>
-                <IshopInfo name={this.state.name} url={this.state.url} price={this.state.price} hidden={this.state.info==true&&this.state.edit==false&&this.state.blockChange==false}/>
-                <IshopChange key={this.state.key} code={this.state.selectedItemCode} name={this.state.name} url={this.state.url} price={this.state.price} quantity={this.state.quantity}
-                    edit={this.state.edit} mode={this.state.mode} items={this.state.items} cbChanged={this.changeItems} cbCanceled={this.canceled} cbOnChange={this.onChange}
-                />
+                <input type='button' value='New Product' onClick={this.newProduct} hidden={this.state.add==true}/>
+                {this.state.selectedItemCode && <IshopInfo item={item} mode={this.state.mode}/>}
+                {this.state.selectedItemCode && <IshopChange key={this.state.key} item = {item} mode={this.state.mode} add={this.state.add}
+                                                    cbChanged={this.changeItems} cbCanceled={this.canceled} cbOnChange={this.onChange}/>}
             </div>
         );
     }

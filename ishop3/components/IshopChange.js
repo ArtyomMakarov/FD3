@@ -8,23 +8,19 @@ class IshopChange extends React.Component {
     static displayName =  "IshopChange"
 
     static propTypes = {
-        name: PropTypes.string.isRequired,
-        price: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-        quantity: PropTypes.string.isRequired,
-        edit: PropTypes.bool.isRequired,
-        code: PropTypes.string.isRequired,
-        cbChanged: PropTypes.func.isRequired
+        item: PropTypes.shape.isRequired,
+        mode: PropTypes.number.isRequired,
+        add: PropTypes.bool.isRequired,
+        cbChanged: PropTypes.func.isRequired,
+        cbCanceled: PropTypes.func.isRequired,
+        cbOnChange: PropTypes.func.isRequired
     }
 
     state = {
-        name: '',
-        price: '',
-        url: '',
-        quantity: '',
-        editItems: '',
-        addItems: '',
-        items: this.props.items,
+        name: this.props.item.name,
+        price: this.props.item.price,
+        url: this.props.item.url,
+        quantity: this.props.item.inStock,
         nameError: true,
         priceError: true,
         urlError: true,
@@ -43,57 +39,31 @@ class IshopChange extends React.Component {
     validFunc = (e, error) => {
         switch (e.target.name) {
             case 'itemName':
-                this.setState({name: e.target.value, nameError: error}, this.editItems);
+                this.setState({name: e.target.value, nameError: error});
                 break;
             case 'itemPrice':
-                this.setState({price: e.target.value, priceError: error},this.editItems);
+                this.setState({price: e.target.value, priceError: error});
                 break;
             case 'itemURL':
-                this.setState({url: e.target.value, urlError: error},this.editItems);
+                this.setState({url: e.target.value, urlError: error});
                 break;
             case 'itemQuantity':
-                this.setState({quantity: e.target.value, quantityError: error},this.editItems);
+                this.setState({quantity: e.target.value, quantityError: error});
                 break;
         }
     }
 
-    editItems = () => {
-        if (this.state.name && this.state.price && this.state.url && this.state.quantity) {
-            let arr = this.props.items.slice();
-            console.log(this.props.items);                                      // изменяется props несмотря на slice
-            let newArr = arr.map(v => {
-                if (v.code == this.props.code) {
-                    v.name = this.state.name;
-                    v.price = this.state.price;
-                    v.url = this.state.url;
-                    v.inStock = this.state.quantity;
-                }
-                return v;
-            });
-            this.setState({editItems: newArr});
-
-
-        }
-    }
-
-    changeItems = (e) => {
-        if (e.target.value=='Save') {
-            this.props.cbChanged(this.state.editItems);
-        } else {
-            var arr = this.props.items.slice();
-            arr.push({name: this.state.name, price: this.state.price, url: this.state.url, code: this.state.name, inStock: this.state.quantity });
-            this.props.cbChanged(arr);
-        }
-        this.setState({name: '', price: '', url: '', quantity: ''});
+    changeItems = () => {
+            this.props.cbChanged({...this.props.item, name: this.state.name, price: this.state.price, url: this.state.url, inStock: this.state.quantity});
     }
 
     render() {
         return (
-            <div className='itemChange' hidden={!this.props.edit}>
-                {
-                    (this.props.mode==1)? <h3>Edit Existing Product</h3>: <h3>Add new product</h3>
-                }
-                <span>ID: {this.props.code}</span>
+            <div className='itemChange' hidden={this.props.mode!==2}>
+
+                <h3>{this.props.add?"Add new product":"Edit Existing Product"}</h3>
+
+                <span>ID: {this.props.item.code}</span>
                 <label className='inputArea'>
                     <span className="fieldName">Name</span>
                     <input type="text" name="itemName" onChange={this.inputChanged}/>
@@ -114,8 +84,8 @@ class IshopChange extends React.Component {
                     <input type="text" name="itemQuantity" onChange={this.inputChanged}/>
                     <span className='error' hidden={!this.state.quantityError}>Please, fill the field. Value must be a positive integer.</span>
                 </label>
-                <input type="button" value={(this.props.mode==1)?"Save":"Add"} onClick={this.changeItems}
-                       disabled={!(this.state.name && this.state.price && this.state.url && this.state.quantity)}/>
+                <input type="button" value={this.props.add?"Add":"Save"} onClick={this.changeItems}
+                       disabled={(this.state.nameError || this.state.priceError || this.state.urlError || this.state.quantityError)}/>
                 <input type="button" value="Cancel" onClick={this.props.cbCanceled}/>
             </div>
         )
