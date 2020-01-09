@@ -42,7 +42,7 @@ class IshopItem extends React.Component {
                 <td className='cell'>{this.props.url}</td>
                 <td className='cell'>{this.props.inStock}</td>
                 <td className='cell'>
-                    <input type='button' value='Edit' onClick={this.editItem} disabled={this.props.blockChange}/>
+                    <input type='button' value='Edit' onClick={this.editItem} disabled={this.props.blockChange || this.props.add}/>
                     <input type='button' value='Delete' onClick={this.deleteItem} disabled={this.props.blockChange || this.props.add || this.props.mode==2}/>
                 </td>
             </tr>

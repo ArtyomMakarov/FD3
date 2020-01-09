@@ -91,6 +91,11 @@ class IshopBlock extends React.Component {
         );
 
         let item = this.state.items.find(v => v.code == this.state.selectedItemCode);
+        let   addItem = {code: this.state.key,
+                    name: '',
+                    price: '',
+                    url:'',
+                    inStock:''};
 
         return (
             <div className='Ishop'>
@@ -109,8 +114,11 @@ class IshopBlock extends React.Component {
                 </table>
                 <input type='button' value='New Product' onClick={this.newProduct} hidden={this.state.add==true||this.state.mode==2}/>
                 {this.state.selectedItemCode && <IshopInfo item={item} mode={this.state.mode}/>}
-                {this.state.selectedItemCode && <IshopChange key={this.state.key} item = {item} mode={this.state.mode} add={this.state.add}
-                                                    cbChanged={this.changeItems} cbCanceled={this.canceled} cbOnChange={this.onChange}/>}
+                {(this.state.selectedItemCode||this.state.add) &&
+                <IshopChange key={this.state.key} item = {this.state.add?addItem:item}
+                             mode={this.state.mode} add={this.state.add} cbChanged={this.changeItems}
+                             cbCanceled={this.canceled} cbOnChange={this.onChange}
+                />}
             </div>
         );
     }

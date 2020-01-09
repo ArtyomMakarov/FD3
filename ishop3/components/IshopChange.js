@@ -21,10 +21,10 @@ class IshopChange extends React.Component {
         price: this.props.item.price,
         url: this.props.item.url,
         quantity: this.props.item.inStock,
-        nameError: true,
-        priceError: true,
-        urlError: true,
-        quantityError: true
+        nameError: this.props.add,
+        priceError: this.props.add,
+        urlError: this.props.add,
+        quantityError: this.props.add
     }
 
     inputChanged = (e) => {
@@ -53,11 +53,29 @@ class IshopChange extends React.Component {
         }
     }
 
-    changeItems = () => {
-            this.props.cbChanged({...this.props.item, name: this.state.name, price: this.state.price, url: this.state.url, inStock: this.state.quantity});
+    changeItems = (e) => {
+        if (e.target.value=='Save') {
+            this.props.cbChanged({
+                ...this.props.item,
+                name: this.state.name,
+                price: this.state.price,
+                url: this.state.url,
+                inStock: this.state.quantity
+            });
+        } else {
+            this.props.cbChanged({
+                ...this.props.item,
+                code: this.props.item.code,
+                name: this.state.name,
+                price: this.state.price,
+                url: this.state.url,
+                inStock: this.state.quantity
+            });
+        }
     }
 
     render() {
+
         return (
             <div className='itemChange' hidden={this.props.mode!==2}>
 
@@ -66,22 +84,22 @@ class IshopChange extends React.Component {
                 <span>ID: {this.props.item.code}</span>
                 <label className='inputArea'>
                     <span className="fieldName">Name</span>
-                    <input type="text" name="itemName" onChange={this.inputChanged}/>
+                    <input type="text" name="itemName" onChange={this.inputChanged} defaultValue={this.state.name}/>
                     <span className='error' hidden={!this.state.nameError}>Please, fill the field. Value must be a string.</span>
                 </label>
                 <label className='inputArea'>
                     <span className="fieldName">Price</span>
-                    <input type="text" name="itemPrice" onChange={this.inputChanged}/>
+                    <input type="text" name="itemPrice" onChange={this.inputChanged} defaultValue={this.state.price}/>
                     <span className='error' hidden={!this.state.priceError}>Please, fill the field. Value must be a rational number greater than 0.</span>
                 </label>
                 <label className='inputArea'>
                     <span className="fieldName">URL</span>
-                    <input type="text" name="itemURL" onChange={this.inputChanged}/>
+                    <input type="text" name="itemURL" onChange={this.inputChanged} defaultValue={this.state.url}/>
                     <span className='error' hidden={!this.state.urlError}>Please, fill the field. Value must be a valid URL.</span>
                 </label>
                 <label className='inputArea'>
                     <span className="fieldName">Quantity</span>
-                    <input type="text" name="itemQuantity" onChange={this.inputChanged}/>
+                    <input type="text" name="itemQuantity" onChange={this.inputChanged} defaultValue={this.state.quantity}/>
                     <span className='error' hidden={!this.state.quantityError}>Please, fill the field. Value must be a positive integer.</span>
                 </label>
                 <input type="button" value={this.props.add?"Add":"Save"} onClick={this.changeItems}
