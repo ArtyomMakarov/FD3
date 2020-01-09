@@ -1,7 +1,7 @@
 .Ishop
 {
     margin: 40px auto;
-    width: 55%;
+    width: 57%;
 }
 
 .Ishop .ShopName
@@ -30,5 +30,19 @@
 {
     cursor: pointer;
 }
+.itemInfo .Price
+{
+    display: block;
+    padding-top: 10px;
+    font-weight: bolder;
+}.itemChange .inputArea
+{
+    display: block;
+}
 
+.itemChange .inputArea .fieldName
+{
+    display: inline-block;
+    width: 60px;
+}
 /*# sourceMappingURL=bundle.css.map*/

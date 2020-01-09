@@ -8,7 +8,7 @@ class IshopChange extends React.Component {
     static displayName =  "IshopChange"
 
     static propTypes = {
-        item: PropTypes.shape.isRequired,
+        item: PropTypes.object.isRequired,
         mode: PropTypes.number.isRequired,
         add: PropTypes.bool.isRequired,
         cbChanged: PropTypes.func.isRequired,

@@ -9,7 +9,7 @@ class IshopInfo extends React.Component {
 
     static propTypes = {
         mode:PropTypes.number.isRequired,
-        item: PropTypes.shape.isRequired
+        item: PropTypes.object.isRequired
     }
 
     render () {
