@@ -32543,33 +32543,22 @@ var BR2JSX = function (_React$Component) {
     _inherits(BR2JSX, _React$Component);
 
     function BR2JSX() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
         _classCallCheck(this, BR2JSX);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = BR2JSX.__proto__ || Object.getPrototypeOf(BR2JSX)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            key: 0
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        return _possibleConstructorReturn(this, (BR2JSX.__proto__ || Object.getPrototypeOf(BR2JSX)).apply(this, arguments));
     }
 
     _createClass(BR2JSX, [{
         key: 'render',
         value: function render() {
             var strArr = this.props.text.split(/(?:<br>|<br\/>|<br\s+\/>)+/);
-            var key = 0;
             var elem = _react2.default.createElement('br', { key: key });
             var res = [];
             for (var i = 0; i <= strArr.length - 1; i++) {
                 if (i == strArr.length - 1) {
                     res.push(strArr[i]);
                 } else {
-                    elem = _react2.default.createElement('br', { key: ++key });
+                    elem = _react2.default.createElement('br', { key: i });
                     res.push(strArr[i], elem);
                 }
             }

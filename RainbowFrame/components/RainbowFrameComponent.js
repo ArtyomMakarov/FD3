@@ -8,17 +8,12 @@ class Rainbow extends React.Component {
         colors: PropTypes.arrayOf(PropTypes.string).isRequired,
     };
     render () {
-        let arr = [];
-        for (let i=0;i<=this.props.colors.length-1;i++) {
-            let elemBegin = <div key={i} style={{border:"solid 3px "+this.props.colors[i],padding:"5px"}}>
-                                {this.props.children}
-                            </div>;
-            arr.push(elemBegin);
-        }
+        let z=this.props.children;
+        this.props.colors.forEach( color => {
+            z = <div style={{border:"solid 3px "+color,padding:"5px"}}>{z}</div>
+        } );
         return (
-            <div>
-                {arr}
-            </div>
+            z
         )
     }
 }

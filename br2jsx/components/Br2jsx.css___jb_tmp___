@@ -1,9 +1,0 @@
-.br2jsx
-{
-    background-color: #0c5460;
-    width: 20%;
-    margin: 0 auto;
-    font-size: 50px;
-    color: white;
-    text-align: center;
-}
