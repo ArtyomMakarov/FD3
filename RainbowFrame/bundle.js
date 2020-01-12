@@ -32555,15 +32555,15 @@ var Rainbow = function (_React$Component) {
     _createClass(Rainbow, [{
         key: 'render',
         value: function render() {
-            var arr = [];
-            for (var i = 0; i <= this.props.colors.length - 1; i++) {
-                arr.push({ border: "solid 3px " + this.props.colors[i], padding: "5px" });
-            }
-            return _react2.default.createElement(
-                'div',
-                { style: { arr: arr } },
-                this.props.children
-            );
+            var z = this.props.children;
+            this.props.colors.forEach(function (color) {
+                z = _react2.default.createElement(
+                    'div',
+                    { style: { border: "solid 3px " + color, padding: "5px" } },
+                    z
+                );
+            });
+            return z;
         }
     }]);
 
@@ -32571,7 +32571,7 @@ var Rainbow = function (_React$Component) {
 }(_react2.default.Component);
 
 Rainbow.propTypes = {
-    color: _propTypes2.default.arrayOf(_propTypes2.default.string).isRequired
+    colors: _propTypes2.default.arrayOf(_propTypes2.default.string).isRequired
 };
 exports.default = Rainbow;
 
