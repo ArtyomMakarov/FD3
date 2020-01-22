@@ -1,0 +1,17 @@
+.clientChange .inputArea
+{
+    display: block;
+    padding-bottom: 5px;
+}
+
+.clientChange .inputArea .fieldName
+{
+    display: inline-block;
+    width: 80px;
+}
+
+.clientChange .error
+{
+    font-size: 30px;
+    color: red;
+}
