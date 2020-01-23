@@ -135,9 +135,9 @@ class MobileCompany extends React.PureComponent {
                 <input type="button" value="Velcom" onClick={this.setName2} />
                 <div className='MobileCompanyName'>Компания &laquo;{this.state.name}&raquo;</div>
                 <div className="MobileCompanyFilter">
-                    <input type="button" value="Все" onClick={this.filterAll}/>
-                    <input type="button" value="Активные" onClick={this.filterActive}/>
-                    <input type="button" value="Заблокированные" onClick={this.filterBlocked}/>
+                    <input type="button" className="All" value="Все" onClick={this.filterAll}/>
+                    <input type="button" className="Active" value="Активные" onClick={this.filterActive}/>
+                    <input type="button" className="Blocked" value="Заблокированные" onClick={this.filterBlocked}/>
                 </div>
                 <table className='table'>
                     <thead>
@@ -153,9 +153,9 @@ class MobileCompany extends React.PureComponent {
                     </thead>
                     <tbody className='body'>{clientsCode}</tbody>
                 </table>
-                <input type="button" value="Добавь клиента" onClick={this.addClient} hidden={this.state.mode>0}/>
+                <input type="button" className="AddClient" value="Добавь клиента" onClick={this.addClient} hidden={this.state.mode>0}/>
                 {
-                    this.state.mode &&
+                    (this.state.mode>0) &&
                     <MobileForm key={this.state.key} info={this.state.mode==1?client:newClient} mode={this.state.mode}/>
                 }
             </div>
