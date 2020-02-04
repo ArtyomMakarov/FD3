@@ -1,0 +1,355 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`работа кнопки Редактировать MobileClient 1`] = `
+<tr
+  className="MobileClient"
+>
+  <td
+    className="cell"
+  >
+    Иванов
+  </td>
+  <td
+    className="cell"
+  >
+    Иван
+  </td>
+  <td
+    className="cell"
+  >
+    Иванович
+  </td>
+  <td
+    className="cell"
+  >
+    200
+  </td>
+  <td
+    className="cell"
+    style={
+      Object {
+        "background": "green",
+      }
+    }
+  >
+    active
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputEdit"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="Редактировать"
+    />
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputDelete"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+      value="Удалить"
+    />
+  </td>
+</tr>
+`;
+
+exports[`работа кнопки Редактировать MobileClient 2`] = `
+<tr
+  className="MobileClient"
+>
+  <td
+    className="cell"
+  >
+    Иванов
+  </td>
+  <td
+    className="cell"
+  >
+    Иван
+  </td>
+  <td
+    className="cell"
+  >
+    Иванович
+  </td>
+  <td
+    className="cell"
+  >
+    200
+  </td>
+  <td
+    className="cell"
+    style={
+      Object {
+        "background": "green",
+      }
+    }
+  >
+    active
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputEdit"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="Редактировать"
+    />
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputDelete"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+      value="Удалить"
+    />
+  </td>
+</tr>
+`;
+
+exports[`работа кнопки Редактировать MobileClient 3`] = `
+<tr
+  className="MobileClient"
+>
+  <td
+    className="cell"
+  >
+    Иванов
+  </td>
+  <td
+    className="cell"
+  >
+    Иван
+  </td>
+  <td
+    className="cell"
+  >
+    Иванович
+  </td>
+  <td
+    className="cell"
+  >
+    200
+  </td>
+  <td
+    className="cell"
+    style={
+      Object {
+        "background": "green",
+      }
+    }
+  >
+    active
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputEdit"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="Редактировать"
+    />
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputDelete"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+      value="Удалить"
+    />
+  </td>
+</tr>
+`;
+
+exports[`работа кнопки Удалить MobileClient 1`] = `
+<tr
+  className="MobileClient"
+>
+  <td
+    className="cell"
+  >
+    Иванов
+  </td>
+  <td
+    className="cell"
+  >
+    Иван
+  </td>
+  <td
+    className="cell"
+  >
+    Иванович
+  </td>
+  <td
+    className="cell"
+  >
+    200
+  </td>
+  <td
+    className="cell"
+    style={
+      Object {
+        "background": "green",
+      }
+    }
+  >
+    active
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputEdit"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="Редактировать"
+    />
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputDelete"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+      value="Удалить"
+    />
+  </td>
+</tr>
+`;
+
+exports[`работа кнопки Удалить MobileClient 2`] = `
+<tr
+  className="MobileClient"
+>
+  <td
+    className="cell"
+  >
+    Иванов
+  </td>
+  <td
+    className="cell"
+  >
+    Иван
+  </td>
+  <td
+    className="cell"
+  >
+    Иванович
+  </td>
+  <td
+    className="cell"
+  >
+    200
+  </td>
+  <td
+    className="cell"
+    style={
+      Object {
+        "background": "green",
+      }
+    }
+  >
+    active
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputEdit"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="Редактировать"
+    />
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputDelete"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+      value="Удалить"
+    />
+  </td>
+</tr>
+`;
+
+exports[`работа кнопки Удалить MobileClient 3`] = `
+<tr
+  className="MobileClient"
+>
+  <td
+    className="cell"
+  >
+    Иванов
+  </td>
+  <td
+    className="cell"
+  >
+    Иван
+  </td>
+  <td
+    className="cell"
+  >
+    Иванович
+  </td>
+  <td
+    className="cell"
+  >
+    200
+  </td>
+  <td
+    className="cell"
+    style={
+      Object {
+        "background": "green",
+      }
+    }
+  >
+    active
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputEdit"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+      value="Редактировать"
+    />
+  </td>
+  <td
+    className="cell"
+  >
+    <input
+      className="inputDelete"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+      value="Удалить"
+    />
+  </td>
+</tr>
+`;
