@@ -26,69 +26,50 @@ var Scales = /** @class */ (function () {
         this.products = __spreadArrays(this.products, [product]);
     };
     Scales.prototype.getSumScale = function () {
-        var scales = this.products.map(function (product) { return product.scale; });
         var res = 0;
-        for (var i = 0; i <= scales.length - 1; i++) {
-            res += scales[i];
-        }
-        console.log('Суммарный вес продуктов = ' + res);
+        this.products.forEach(function (product) { res += product.getScale(); });
+        console.log('Суммарный вес = ' + res + ' грамм');
+        return res;
     };
     Scales.prototype.getNameList = function () {
-        var names = this.products.map(function (product) { return product.name + ' ' + product.kind; });
-        console.log('Список продуктов: ' + names);
+        var res = [];
+        this.products.forEach(function (product) { return res.push(product.getName()); });
+        console.log('Список продуктов: ' + res);
+        return res;
     };
     return Scales;
 }());
 var Product = /** @class */ (function () {
-    function Product() {
-        this.measure = 'gram';
+    function Product(_name, _scale) {
+        this.name = _name;
+        this.scale = _scale;
     }
     Product.prototype.getScale = function () {
-        console.log('Вес ' + this.name + this.kind + '=' + this.scale + this.measure);
+        return this.scale;
     };
     Product.prototype.getName = function () {
-        console.log('Продукт' + this.kind + this.name);
+        return this.name;
     };
     return Product;
 }());
 var Apple = /** @class */ (function (_super) {
     __extends(Apple, _super);
-    function Apple(_name, _kind, _scale) {
-        var _this = _super.call(this) || this;
-        _this.name = _name;
-        _this.scale = _scale;
-        _this.kind = _kind;
-        return _this;
+    function Apple(_scale) {
+        return _super.call(this, 'Apple', _scale) || this;
     }
-    Apple.prototype.getScale = function () {
-        _super.prototype.getScale.call(this);
-    };
-    Apple.prototype.getName = function () {
-        _super.prototype.getName.call(this);
-    };
     return Apple;
 }(Product));
 var Orange = /** @class */ (function (_super) {
     __extends(Orange, _super);
-    function Orange(_name, _kind, _scale) {
-        var _this = _super.call(this) || this;
-        _this.name = _name;
-        _this.scale = _scale;
-        _this.kind = _kind;
-        return _this;
+    function Orange(_scale) {
+        return _super.call(this, 'Orange', _scale) || this;
     }
-    Orange.prototype.getScale = function () {
-        _super.prototype.getScale.call(this);
-    };
-    Orange.prototype.getName = function () {
-        _super.prototype.getName.call(this);
-    };
     return Orange;
 }(Product));
-var apple1 = new Apple('Яблоко', 'Турция', 20);
-var apple2 = new Apple('Яблоко', 'Польша', 30);
-var orange1 = new Orange('Апельсин', 'Испания', 35);
-var orange2 = new Orange('Апельсин', 'Болгария', 50);
+var apple1 = new Apple(20);
+var apple2 = new Apple(30);
+var orange1 = new Orange(35);
+var orange2 = new Orange(50);
 var scales = new Scales();
 scales.add(apple1);
 scales.add(apple2);
