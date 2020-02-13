@@ -1,31 +1,71 @@
 interface IStorageEngine {
     addItem(item:Product):void;
     getItem(index:number):Product;
-    getItems():Array<Product>;
     getCount():number;
 }
 
 class Scales<StorageEngine extends IStorageEngine> {
 
-    store:StorageEngine;
+    store:ScalesStorageEngineArray|ScalesStorageEngineLocalStorage;
     
     constructor(_store:StorageEngine) {
-        this.store = _store;
+        if(_store instanceof ScalesStorageEngineArray) {
+            this.store = new ScalesStorageEngineArray();
+        }
+        if(_store instanceof ScalesStorageEngineLocalStorage) {
+            this.store = new ScalesStorageEngineLocalStorage();
+        }
     }
 
     getSumScale():number {
-        let res:number = 0;
-        let items = this.store.getItems();
-        items.forEach((product:Product) => {res += product.getScale()});
-        console.log('Суммарный вес = ' + res +' грамм');
+
+        let res: number = 0;
+
+        if (this.store instanceof ScalesStorageEngineArray) {
+
+            this.store.items.forEach((product: Product) => {
+                res += product.getScale()
+            });
+        }
+
+        if (this.store instanceof ScalesStorageEngineLocalStorage) {
+
+            let items:Array<Product> = [];
+
+            for (let i=0; i<=this.store.items.length-1;i++) {
+                let itemObj = JSON.parse(`${this.store.items[i]}`);
+                let product = new Product(itemObj.name, itemObj.scale);
+                items.push(product);
+            }
+
+            items.forEach((product: Product) => {
+                res += product.getScale()
+            });
+        }
         return res;
     }
 
     getNameList():Array<string> {
+
         let res:Array<string> = [];
-        let items = this.store.getItems();
-        items.forEach((product:Product) => res.push(product.getName()));
-        console.log('Список продуктов: ' + res);
+
+        if (this.store instanceof ScalesStorageEngineArray) {
+
+            this.store.items.forEach((product:Product) => res.push(product.getName()));
+        }
+
+        if (this.store instanceof ScalesStorageEngineLocalStorage) {
+
+            let items:Array<Product> = [];
+
+            for (let i=0; i<=this.store.items.length-1;i++) {
+                let itemObj = JSON.parse(`${this.store.items[i]}`);
+                let product = new Product(itemObj.name, itemObj.scale);
+                items.push(product);
+            }
+
+            items.forEach((product:Product) => res.push(product.getName()));
+        }
         return res;
     }
 
@@ -53,10 +93,6 @@ class ScalesStorageEngineArray implements IStorageEngine {
 
     items:Array<Product> = [];
 
-    getItems():Array<Product> {
-        return this.items;
-    }
-
     addItem(item:Product):void {
         this.items.push(item);
     }
@@ -73,15 +109,6 @@ class ScalesStorageEngineArray implements IStorageEngine {
 class ScalesStorageEngineLocalStorage implements IStorageEngine {
     items = window.localStorage;
     index:number = 0;
-
-    getItems():Array<Product> {
-        let items:Array<Product> = [];
-        for (let i =0; i<this.index; i++) {
-            let item = this.items.getItem(`${i}`);
-            items.push(JSON.parse(item));
-        }
-        return items;
-    }
 
     addItem(item:Product):void {
         this.items.setItem( `${this.index}`, JSON.stringify(item));
@@ -112,11 +139,13 @@ let product3 = new Product('Cherry', 40);
 
 scalesStorageArray.store.addItem(product1);
 scalesStorageArray.store.addItem(product2);
-scalesStorageArray.getSumScale();
-scalesStorageArray.getNameList();
+
+console.log('Суммарный вес = ' + scalesStorageArray.getSumScale() + ' грамм');
+console.log('Список продуктов: ' + scalesStorageArray.getNameList());
 
 scalesLocalStorage.store.addItem(product2);
 scalesLocalStorage.store.addItem(product3);
-scalesLocalStorage.getSumScale();
-scalesLocalStorage.getNameList();
 
+
+console.log('Суммарный вес = ' + scalesLocalStorage.getSumScale() + ' грамм');
+console.log('Список продуктов: ' + scalesLocalStorage.getNameList());
