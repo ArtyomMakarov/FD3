@@ -6,10 +6,14 @@ interface IStorageEngine {
 
 class Scales<StorageEngine extends IStorageEngine> {
 
-    store:StorageEngine;
+    private store:StorageEngine;
     
     constructor(_store:StorageEngine) {
         this.store = _store;
+    }
+
+    addItem(product:Product):void {
+        this.store.addItem(product);
     }
 
     getSumScale():number {
@@ -102,14 +106,15 @@ let product2 = new Product('Orange', 30);
 let product3 = new Product('Cherry', 40);
 
 
-scalesStorageArray.store.addItem(product1);
-scalesStorageArray.store.addItem(product2);
+scalesStorageArray.addItem(product1);
+scalesStorageArray.addItem(product2);
+
 
 console.log('Суммарный вес = ' + scalesStorageArray.getSumScale() + ' грамм');
 console.log('Список продуктов: ' + scalesStorageArray.getNameList());
 
-scalesLocalStorage.store.addItem(product2);
-scalesLocalStorage.store.addItem(product3);
+scalesLocalStorage.addItem(product2);
+scalesLocalStorage.addItem(product3);
 
 
 console.log('Суммарный вес = ' + scalesLocalStorage.getSumScale() + ' грамм');

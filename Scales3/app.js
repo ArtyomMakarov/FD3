@@ -2,6 +2,9 @@ var Scales = /** @class */ (function () {
     function Scales(_store) {
         this.store = _store;
     }
+    Scales.prototype.addItem = function (product) {
+        this.store.addItem(product);
+    };
     Scales.prototype.getSumScale = function () {
         var res = 0;
         var count = this.store.getCount();
@@ -77,12 +80,12 @@ var scalesLocalStorage = new Scales(localStorageEngine);
 var product1 = new Product('Apple', 20);
 var product2 = new Product('Orange', 30);
 var product3 = new Product('Cherry', 40);
-scalesStorageArray.store.addItem(product1);
-scalesStorageArray.store.addItem(product2);
+scalesStorageArray.addItem(product1);
+scalesStorageArray.addItem(product2);
 console.log('Суммарный вес = ' + scalesStorageArray.getSumScale() + ' грамм');
 console.log('Список продуктов: ' + scalesStorageArray.getNameList());
-scalesLocalStorage.store.addItem(product2);
-scalesLocalStorage.store.addItem(product3);
+scalesLocalStorage.addItem(product2);
+scalesLocalStorage.addItem(product3);
 console.log('Суммарный вес = ' + scalesLocalStorage.getSumScale() + ' грамм');
 console.log('Список продуктов: ' + scalesLocalStorage.getNameList());
 //# sourceMappingURL=app.js.map
