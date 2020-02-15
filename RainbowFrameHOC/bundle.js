@@ -1302,7 +1302,7 @@ var ReactElement = function (type, key, ref, self, source, owner, props) {
     // commonly used development environments.
     element._store = {}; // To make comparing ReactElements easier for testing purposes, we make
     // the validation flag non-enumerable (where possible, which should
-    // include every environment we run tests in), so the test framework
+    // include every environment we run __tests__ in), so the test framework
     // ignores it.
 
     Object.defineProperty(element._store, 'validated', {
@@ -2765,8 +2765,8 @@ var enableScopeAPI = false; // New API for JSX transforms to target - https://gi
 var enableJSXTransformAPI = false; // We will enforce mocking scheduler with scheduler/unstable_mock at some point. (v17?)
 // Till then, we warn about the missing mock, but still fallback to a legacy mode compatible version
 
- // For tests, we flush suspense fallbacks in an act scope;
-// *except* in some of our own tests, where we test incremental loading states.
+ // For __tests__, we flush suspense fallbacks in an act scope;
+// *except* in some of our own __tests__, where we test incremental loading states.
 
  // Add a callback property to suspense to notify which promises are currently
 // in the update queue. This allows reporting and tracing of what is causing
@@ -5514,8 +5514,8 @@ var enableScopeAPI = false; // New API for JSX transforms to target - https://gi
  // We will enforce mocking scheduler with scheduler/unstable_mock at some point. (v17?)
 // Till then, we warn about the missing mock, but still fallback to a legacy mode compatible version
 
-var warnAboutUnmockedScheduler = false; // For tests, we flush suspense fallbacks in an act scope;
-// *except* in some of our own tests, where we test incremental loading states.
+var warnAboutUnmockedScheduler = false; // For __tests__, we flush suspense fallbacks in an act scope;
+// *except* in some of our own __tests__, where we test incremental loading states.
 
 var flushSuspenseFallbacksInTests = true; // Add a callback property to suspense to notify which promises are currently
 // in the update queue. This allows reporting and tracing of what is causing
@@ -6757,7 +6757,7 @@ function trackValueOnNode(node) {
   var currentValue = '' + node[valueField]; // if someone has already defined a value or Safari, then bail
   // and don't track value will cause over reporting of changes,
   // but it's better then a hard failure
-  // (needed for certain tests that spyOn input values and Safari)
+  // (needed for certain __tests__ that spyOn input values and Safari)
 
   if (node.hasOwnProperty(valueField) || typeof descriptor === 'undefined' || typeof descriptor.get !== 'function' || typeof descriptor.set !== 'function') {
     return;
@@ -8956,7 +8956,7 @@ function accumulateDirectionalDispatches(inst, phase, event) {
 }
 /**
  * Collect dispatches (must be entirely collected before dispatching - see unit
- * tests). Lazily allocate the array to conserve memory.  We must loop through
+ * __tests__). Lazily allocate the array to conserve memory.  We must loop through
  * each event and perform the traversal for each one. We cannot perform a
  * single traversal for the entire collection of events because each event may
  * have a different target.
@@ -20903,7 +20903,7 @@ function updateEffectImpl(fiberEffectTag, hookEffectTag, create, deps) {
 
 function mountEffect(create, deps) {
   {
-    // $FlowExpectedError - jest isn't a global, and isn't recognized outside of tests
+    // $FlowExpectedError - jest isn't a global, and isn't recognized outside of __tests__
     if ('undefined' !== typeof jest) {
       warnIfNotCurrentlyActingEffectsInDEV(currentlyRenderingFiber$1);
     }
@@ -20914,7 +20914,7 @@ function mountEffect(create, deps) {
 
 function updateEffect(create, deps) {
   {
-    // $FlowExpectedError - jest isn't a global, and isn't recognized outside of tests
+    // $FlowExpectedError - jest isn't a global, and isn't recognized outside of __tests__
     if ('undefined' !== typeof jest) {
       warnIfNotCurrentlyActingEffectsInDEV(currentlyRenderingFiber$1);
     }
@@ -21249,7 +21249,7 @@ function dispatchAction(fiber, queue, action) {
     }
 
     {
-      // $FlowExpectedError - jest isn't a global, and isn't recognized outside of tests
+      // $FlowExpectedError - jest isn't a global, and isn't recognized outside of __tests__
       if ('undefined' !== typeof jest) {
         warnIfNotScopedWithMatchingAct(fiber);
         warnIfNotCurrentlyActingUpdatesInDev(fiber);
@@ -30004,7 +30004,7 @@ function warnAboutInvalidUpdatesOnClassComponentsInDEV(fiber) {
       }
     }
   }
-} // a 'shared' variable that changes when act() opens/closes in tests.
+} // a 'shared' variable that changes when act() opens/closes in __tests__.
 
 
 var IsThisRendererActing = {
@@ -30020,7 +30020,7 @@ function warnIfNotScopedWithMatchingAct(fiber) {
 function warnIfNotCurrentlyActingEffectsInDEV(fiber) {
   {
     if (warnsIfNotActing === true && (fiber.mode & StrictMode) !== NoMode && IsSomeRendererActing.current === false && IsThisRendererActing.current === false) {
-      warningWithoutStack$1(false, 'An update to %s ran an effect, but was not wrapped in act(...).\n\n' + 'When testing, code that causes React state updates should be ' + 'wrapped into act(...):\n\n' + 'act(() => {\n' + '  /* fire events that update state */\n' + '});\n' + '/* assert on the output */\n\n' + "This ensures that you're testing the behavior the user would see " + 'in the browser.' + ' Learn more at https://fb.me/react-wrap-tests-with-act' + '%s', getComponentName(fiber.type), getStackByFiberInDevAndProd(fiber));
+      warningWithoutStack$1(false, 'An update to %s ran an effect, but was not wrapped in act(...).\n\n' + 'When testing, code that causes React state updates should be ' + 'wrapped into act(...):\n\n' + 'act(() => {\n' + '  /* fire events that update state */\n' + '});\n' + '/* assert on the output */\n\n' + "This ensures that you're testing the behavior the user would see " + 'in the browser.' + ' Learn more at https://fb.me/react-wrap-__tests__-with-act' + '%s', getComponentName(fiber.type), getStackByFiberInDevAndProd(fiber));
     }
   }
 }
@@ -30028,27 +30028,27 @@ function warnIfNotCurrentlyActingEffectsInDEV(fiber) {
 function warnIfNotCurrentlyActingUpdatesInDEV(fiber) {
   {
     if (warnsIfNotActing === true && executionContext === NoContext && IsSomeRendererActing.current === false && IsThisRendererActing.current === false) {
-      warningWithoutStack$1(false, 'An update to %s inside a test was not wrapped in act(...).\n\n' + 'When testing, code that causes React state updates should be ' + 'wrapped into act(...):\n\n' + 'act(() => {\n' + '  /* fire events that update state */\n' + '});\n' + '/* assert on the output */\n\n' + "This ensures that you're testing the behavior the user would see " + 'in the browser.' + ' Learn more at https://fb.me/react-wrap-tests-with-act' + '%s', getComponentName(fiber.type), getStackByFiberInDevAndProd(fiber));
+      warningWithoutStack$1(false, 'An update to %s inside a test was not wrapped in act(...).\n\n' + 'When testing, code that causes React state updates should be ' + 'wrapped into act(...):\n\n' + 'act(() => {\n' + '  /* fire events that update state */\n' + '});\n' + '/* assert on the output */\n\n' + "This ensures that you're testing the behavior the user would see " + 'in the browser.' + ' Learn more at https://fb.me/react-wrap-__tests__-with-act' + '%s', getComponentName(fiber.type), getStackByFiberInDevAndProd(fiber));
     }
   }
 }
 
-var warnIfNotCurrentlyActingUpdatesInDev = warnIfNotCurrentlyActingUpdatesInDEV; // In tests, we want to enforce a mocked scheduler.
+var warnIfNotCurrentlyActingUpdatesInDev = warnIfNotCurrentlyActingUpdatesInDEV; // In __tests__, we want to enforce a mocked scheduler.
 
 var didWarnAboutUnmockedScheduler = false; // TODO Before we release concurrent mode, revisit this and decide whether a mocked
 // scheduler is the actual recommendation. The alternative could be a testing build,
 // a new lib, or whatever; we dunno just yet. This message is for early adopters
-// to get their tests right.
+// to get their __tests__ right.
 
 function warnIfUnmockedScheduler(fiber) {
   {
     if (didWarnAboutUnmockedScheduler === false && Scheduler.unstable_flushAllWithoutAsserting === undefined) {
       if (fiber.mode & BlockingMode || fiber.mode & ConcurrentMode) {
         didWarnAboutUnmockedScheduler = true;
-        warningWithoutStack$1(false, 'In Concurrent or Sync modes, the "scheduler" module needs to be mocked ' + 'to guarantee consistent behaviour across tests and browsers. ' + 'For example, with jest: \n' + "jest.mock('scheduler', () => require('scheduler/unstable_mock'));\n\n" + 'For more info, visit https://fb.me/react-mock-scheduler');
+        warningWithoutStack$1(false, 'In Concurrent or Sync modes, the "scheduler" module needs to be mocked ' + 'to guarantee consistent behaviour across __tests__ and browsers. ' + 'For example, with jest: \n' + "jest.mock('scheduler', () => require('scheduler/unstable_mock'));\n\n" + 'For more info, visit https://fb.me/react-mock-scheduler');
       } else if (warnAboutUnmockedScheduler === true) {
         didWarnAboutUnmockedScheduler = true;
-        warningWithoutStack$1(false, 'Starting from React v17, the "scheduler" module will need to be mocked ' + 'to guarantee consistent behaviour across tests and browsers. ' + 'For example, with jest: \n' + "jest.mock('scheduler', () => require('scheduler/unstable_mock'));\n\n" + 'For more info, visit https://fb.me/react-mock-scheduler');
+        warningWithoutStack$1(false, 'Starting from React v17, the "scheduler" module will need to be mocked ' + 'to guarantee consistent behaviour across __tests__ and browsers. ' + 'For example, with jest: \n' + "jest.mock('scheduler', () => require('scheduler/unstable_mock'));\n\n" + 'For more info, visit https://fb.me/react-mock-scheduler');
       }
     }
   }
@@ -31232,7 +31232,7 @@ function updateContainer(element, container, parentComponent, callback) {
   var currentTime = requestCurrentTimeForUpdate();
 
   {
-    // $FlowExpectedError - jest isn't a global, and isn't recognized outside of tests
+    // $FlowExpectedError - jest isn't a global, and isn't recognized outside of __tests__
     if ('undefined' !== typeof jest) {
       warnIfUnmockedScheduler(current$$1);
       warnIfNotScopedWithMatchingAct(current$$1);
@@ -32074,8 +32074,8 @@ var enableSchedulerTracing = true; // SSR experiments
  // We will enforce mocking scheduler with scheduler/unstable_mock at some point. (v17?)
 // Till then, we warn about the missing mock, but still fallback to a legacy mode compatible version
 
- // For tests, we flush suspense fallbacks in an act scope;
-// *except* in some of our own tests, where we test incremental loading states.
+ // For __tests__, we flush suspense fallbacks in an act scope;
+// *except* in some of our own __tests__, where we test incremental loading states.
 
  // Add a callback property to suspense to notify which promises are currently
 // in the update queue. This allows reporting and tracing of what is causing

@@ -19,7 +19,7 @@ class Scales<StorageEngine extends IStorageEngine> {
     getSumScale():number {
         let res: number = 0;
         let count:number = this.store.getCount();
-        for (let i=0; i<=count;i++) {
+        for (let i=0; i<count;i++) {
             let item = this.store.getItem(i);
             res += item.getScale();
         }
@@ -30,7 +30,7 @@ class Scales<StorageEngine extends IStorageEngine> {
 
         let res:Array<string> = [];
         let count:number = this.store.getCount();
-        for (let i=0; i<=count;i++) {
+        for (let i=0; i<count;i++) {
             let item = this.store.getItem(i);
             res.push(item.getName());
         }
@@ -70,7 +70,7 @@ class ScalesStorageEngineArray implements IStorageEngine {
     }
 
     getCount():number {
-        return this.items.length - 1;
+        return this.items.length;
     }
 }
 
@@ -91,7 +91,7 @@ class ScalesStorageEngineLocalStorage implements IStorageEngine {
     }
 
     getCount():number {
-        return this.items.length-1;
+        return this.items.length;
     }
 }
 
