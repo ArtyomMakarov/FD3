@@ -1,0 +1,12 @@
+<div class="Cash">
+  <h2 class="cashName">{{getCashName()}}</h2>
+  <h3 class="choosePlaceText">Выберите колличество мест</h3>
+  <div class="choosePlace">
+    <div class="number"><input type="number" #place value="1" min="1" max="4" required/></div>
+  </div>
+  <button (click)="getTicket(placeRef.nativeElement.value)" [disabled]="getFreePlaces().length==0" class="bookButton">Заказать</button>
+  <div *ngIf="places.length>0" class="cashInfo">Ваши места: {{places}}</div>
+  <div *ngIf="getFreePlaces().length == 0" class="cashInfo">Мест в зале больше нет.</div>
+  <div *ngIf="nearbyPlaceError" class="cashInfo">Мест рядом нет.</div>
+  <div *ngIf="emptyPlaceError" class="cashInfo">Осталось {{getFreePlaces().length}} мест.</div>
+</div>

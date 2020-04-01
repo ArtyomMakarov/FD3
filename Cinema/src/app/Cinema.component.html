@@ -1,0 +1,6 @@
+<div class="Cinema">
+  <h1 class="cinemaName">Cinema</h1>
+  <hall [allPlaces]="getPlaces()" [freePlaces]="getFreePlaces()" [blockedPlaces]="getBlockedPlaces()"></hall>
+  <cash [cashName]="getOnlineCashName()" [freePlaces]="getFreePlaces()" [emptyPlaceError]="getEmptyPlaceError()" [nearbyPlaceError]="getNearbyPlaceError()"></cash>
+  <cash [cashName]="getOfflineCashName()" [freePlaces]="getFreePlaces()" [emptyPlaceError]="getEmptyPlaceError()" [nearbyPlaceError]="getNearbyPlaceError()"></cash>
+</div>
