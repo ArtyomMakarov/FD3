@@ -1,0 +1,20 @@
+.Hall {
+  border: 1px solid #5c5c5c;
+  width: 44%;
+  padding: 10px;
+  color: #5c5c5c;
+}
+.places {
+  display: block;
+}
+.place-wrapper{
+  display: inline-block;
+}
+.Place {
+  display: inline-block;
+  background-color: lightgrey;
+  width: 15px;
+  height: 25px;
+  margin-right: 5px;
+  margin-top: 5px;
+}

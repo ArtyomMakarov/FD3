@@ -1,0 +1,12 @@
+<div class="Hall">
+  <span class="hallInfo">Вего билетов в зале: {{getPlaces().length}}</span>
+  <br>
+  <span class="hallInfo">Свободных мест: {{getFreePlaces().length}}</span>
+  <br>
+  <span class="hallInfo">Занято мест: {{getBlockedPlaces().length}}</span>
+  <div class="places">
+    <div  class="place-wrapper" *ngFor="let place of getPlacesObservable()">
+      <div class="Place" [style.background-color]="place==false?'red':'green'"></div>
+    </div>
+  </div>
+</div>
